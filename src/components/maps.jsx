@@ -12,7 +12,7 @@ class MapaGoogle extends Component {
         };
       }
 
-      getEndereco(){
+      getLatlong(){
         Geocode.fromAddress("30150250").then(
             response => {
               const { lat, lng } = response.results[0].geometry.location;
@@ -24,21 +24,33 @@ class MapaGoogle extends Component {
               console.error(error);
             }
           );
-    
+     }
+
+     getEndereco(){
+      Geocode.fromLatLng("48.8583701", "2.2922926").then(
+        response => {
+          const address = response.results[0].formatted_address;
+          console.log(address);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
      }
   
     render() {
 
     return (
-        <Map google={this.props.google} zoom={14}>
- 
+      <Map google={this.props.google} zoom={14}>
+
         <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
+          name={'Current location'} />
  
         <InfoWindow onClose={this.onInfoWindowClose}>
-           <div>
-                <h1>{this.inputplace}</h1>
-            </div> 
+          <div>
+            <h1>{this.inputplace}</h1>
+          </div> 
         </InfoWindow>
       </Map>
     );

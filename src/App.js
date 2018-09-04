@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Endereco from './components/endereco'
 import MapaGoogle from './components/maps'
 import CampoBusca from './components/campobusca'
 
@@ -8,14 +7,17 @@ import CampoBusca from './components/campobusca'
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.getCep = this.getCep.bind(this)
+
     this.state = {     
-      inputplace: {},
+      inputplace: '',
     };
   }      
   
   
-  getCep(value){
-    this.setState({ inputplace: value })
+  getCep(inputplace){
+    this.setState({ inputplace })
   };
 
   render() {
@@ -24,12 +26,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Buscador de CEP</h1>
-          <CampoBusca pegaCep={this.getCep} />
+          <CampoBusca pegaCep={(inputplace) => this.getCep()} />
         </header>
 
-              <MapaGoogle input={this.state.inputplace} />
+              <MapaGoogle  />
            
-              <Endereco />
 
       </div>
     );
